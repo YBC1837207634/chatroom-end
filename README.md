@@ -16,8 +16,8 @@ from-data
 
 ```json
 {
-    username:admin
-    password:admin
+    "username":"admin"
+    "password":"admin"
 }
 ```
 
@@ -40,8 +40,8 @@ from-data
 wabsocket 发送消息的格式 
 
 ```json
-{"broadcast":true,"msg":["aaa","管"]}   // 广播消息
-{"broadcast":false,"from":"管理员","msg":"asdasdasd"}   // 发送到指定用户
+{"broadcast":true,"msg":["aaa","管"]}   
+{"broadcast":false,"from":"管理员","msg":"asdasdasd"}   
 ```
 
 客户端发送给服务器
@@ -50,3 +50,27 @@ wabsocket 发送消息的格式
 {"target":"王五","message":"hello"}
 ```
 
+```sql
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '账号',
+  `password` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密码',
+  `head_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '头像',
+  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '名称',
+  `is_delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否禁用',
+  `admin` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否是管理员',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `username`(`username`) USING BTREE,
+  UNIQUE INDEX `name`(`name`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+```
